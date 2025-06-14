@@ -1,9 +1,30 @@
 {
   "name": "contract-management-system",
   "version": "1.0.0",
-  "description": "采购合同管理系统",
+  "description": "一个基于 Electron + Vue 3 + TypeScript 的现代化采购合同管理系统",
   "main": "dist-electron/main/main.cjs",
   "type": "module",
+  "author": "Contract Management System Team",
+  "license": "MIT",
+  "homepage": "https://github.com/huangfeng15/contract-system#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huangfeng15/contract-system.git"
+  },
+  "bugs": {
+    "url": "https://github.com/huangfeng15/contract-system/issues"
+  },
+  "keywords": [
+    "contract-management",
+    "procurement",
+    "electron",
+    "vue3",
+    "typescript",
+    "sqlite",
+    "desktop-app",
+    "data-import",
+    "excel"
+  ],
   "scripts": {
     "dev": "chcp 65001 && npx vite",
     "dev:clean": "chcp 65001 && set ELECTRON_DISABLE_SECURITY_WARNINGS=true && npx vite",
