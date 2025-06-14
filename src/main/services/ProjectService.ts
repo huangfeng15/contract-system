@@ -388,48 +388,20 @@ export class ProjectService {
 
       console.log(`转换后的项目ID: ${projectId}, 类型: ${typeof projectId}`);
 
-      // 首先列出所有项目进行调试
-      console.log('=== 调试：列出所有项目 ===');
-      const allProjects = await this.findAll();
-      if (allProjects.success && allProjects.data) {
-        console.log(`数据库中共有 ${allProjects.data.length} 个项目:`);
-        allProjects.data.forEach(project => {
-          console.log(`  ID: ${project.id} (类型: ${typeof project.id}) | 编号: ${project.projectCode} | 名称: ${project.projectName}`);
-        });
-
-        // 检查是否存在匹配的ID
-        const matchingProject = allProjects.data.find(p => p.id === projectId || p.id == projectId);
-        if (matchingProject) {
-          console.log(`✅ 找到匹配的项目: ID ${matchingProject.id}, 名称: ${matchingProject.projectName}`);
-        } else {
-          console.log(`❌ 未找到匹配的项目ID: ${projectId}`);
-          console.log('可用的项目ID列表:', allProjects.data.map(p => p.id));
-        }
-      } else {
-        console.log('获取所有项目失败:', allProjects.error);
-      }
-
       // 检查项目是否存在
-      console.log(`检查项目是否存在，查找ID: ${projectId} (类型: ${typeof projectId})`);
       const existingProject = await this.findById(projectId);
-      console.log('查找项目结果:', existingProject);
 
       if (!existingProject.success || !existingProject.data) {
-        console.error(`未找到项目，ID: ${projectId}`);
         return {
           success: false,
           error: `未找到ID为 ${projectId} 的项目。请检查项目是否存在。`
         };
       }
 
-      console.log(`找到项目: ${existingProject.data.projectName}, 开始删除...`);
-
       const db = this.dbManager.getDatabase();
       const sql = 'DELETE FROM projects WHERE id = ?';
       const stmt = db.prepare(sql);
       const result = stmt.run(projectId);
-
-      console.log('删除操作结果:', result);
 
       if (result.changes === 0) {
         return {
@@ -437,8 +409,6 @@ export class ProjectService {
           error: '项目删除失败，没有行被删除'
         };
       }
-
-      console.log(`项目已删除: ${existingProject.data.projectName} (ID: ${projectId})`);
 
       return {
         success: true,

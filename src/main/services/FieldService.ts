@@ -113,8 +113,6 @@ export class FieldService extends BaseService<FieldConfig> {
    */
   public async create(data: Omit<FieldConfig, 'id' | 'createdAt' | 'updatedAt'>): Promise<DatabaseResult<FieldConfig>> {
     try {
-      console.log('开始创建字段配置:', data);
-
       // 先验证原始数据
       const validation = this.validate(data as Partial<FieldConfig>);
       if (!validation.success) {
@@ -123,7 +121,6 @@ export class FieldService extends BaseService<FieldConfig> {
 
       // 验证通过后再预处理数据
       const processedData = this.preprocessFieldData(data);
-      console.log('预处理后的数据:', processedData);
 
       const db = this.dbManager.getDatabase();
       const sql = `
@@ -148,8 +145,6 @@ export class FieldService extends BaseService<FieldConfig> {
         processedData.cleaningRule || ''
       );
 
-      console.log('字段创建结果:', result);
-
       if (result.changes === 0) {
         return {
           success: false,
@@ -159,7 +154,6 @@ export class FieldService extends BaseService<FieldConfig> {
 
       // 获取创建的字段
       const createdField = await this.findById(Number(result.lastInsertRowid));
-      console.log('创建的字段:', createdField);
 
       return createdField;
 
@@ -177,8 +171,6 @@ export class FieldService extends BaseService<FieldConfig> {
    */
   public async update(id: number, data: Partial<Omit<FieldConfig, 'id' | 'createdAt'>>): Promise<DatabaseResult<FieldConfig>> {
     try {
-      console.log('开始更新字段配置:', id, data);
-
       // 检查字段是否存在
       const existingField = await this.findById(id);
       if (!existingField.success || !existingField.data) {
@@ -196,7 +188,6 @@ export class FieldService extends BaseService<FieldConfig> {
 
       // 验证通过后再预处理数据
       const processedData = this.preprocessFieldData(data);
-      console.log('预处理后的更新数据:', processedData);
 
       const db = this.dbManager.getDatabase();
       const fields = Object.keys(processedData);
@@ -212,8 +203,6 @@ export class FieldService extends BaseService<FieldConfig> {
       const stmt = db.prepare(sql);
       const result = stmt.run(...values, id);
 
-      console.log('字段更新结果:', result);
-
       if (result.changes === 0) {
         return {
           success: false,
@@ -223,7 +212,6 @@ export class FieldService extends BaseService<FieldConfig> {
 
       // 获取更新后的字段
       const updatedField = await this.findById(id);
-      console.log('更新后的字段:', updatedField);
 
       return updatedField;
 
@@ -343,8 +331,6 @@ export class FieldService extends BaseService<FieldConfig> {
 
       transaction();
 
-      console.log(`批量创建字段成功，共创建 ${createdFields.length} 个字段`);
-
       return {
         success: true,
         data: createdFields
@@ -413,8 +399,6 @@ export class FieldService extends BaseService<FieldConfig> {
           error: '字段配置删除失败'
         };
       }
-
-      console.log(`字段配置已删除: ${existingField.data.fieldName} (ID: ${id})`);
 
       return {
         success: true,

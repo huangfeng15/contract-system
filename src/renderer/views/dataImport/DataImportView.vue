@@ -43,9 +43,7 @@
         <button class="btn btn-primary" @click="updateAllFiles" :disabled="importFileList.length === 0">
           🔄 手动更新所有文件数据
         </button>
-        <button class="btn btn-test" @click="testDataImportFunction">
-          🧪 测试数据导入功能
-        </button>
+
       </div>
     </div>
 
@@ -829,102 +827,7 @@ const deleteFile = async (file: ImportFileListItem): Promise<void> => {
   }
 }
 
-// 测试数据导入功能
-const testDataImportFunction = async (): Promise<void> => {
-  console.log('🧪 开始测试数据导入功能...')
-  ElMessage.info('开始测试数据导入功能，请查看控制台输出')
 
-  try {
-    // 1. 测试字段配置获取
-    console.log('📋 测试字段配置获取...')
-    const fieldResult = await window.electronAPI.field.getConfig()
-    console.log('字段配置结果:', fieldResult)
-
-    if (fieldResult.success) {
-      const fields = fieldResult.data
-      console.log(`✅ 字段配置获取成功，总数: ${fields.length}`)
-
-      if (fields.length === 0) {
-        console.warn('⚠️ 数据库中没有字段配置，这可能是字段匹配失败的原因')
-        ElMessage.warning('数据库中没有字段配置，请先在字段管理页面添加字段配置')
-        return
-      }
-
-      const contractFields = fields.filter(f => f.fieldType === 'contract' || f.fieldCategory === 'contract')
-      const procurementFields = fields.filter(f => f.fieldType === 'procurement' || f.fieldCategory === 'procurement')
-
-      console.log(`📄 合同字段数量: ${contractFields.length}`)
-      console.log(`📄 采购字段数量: ${procurementFields.length}`)
-
-      if (contractFields.length > 0) {
-        console.log('合同字段示例:', contractFields.slice(0, 5).map(f => ({
-          名称: f.fieldName,
-          别名: f.fieldAlias,
-          类型: f.fieldType || f.fieldCategory,
-          数据类型: f.dataType
-        })))
-      }
-
-      if (procurementFields.length > 0) {
-        console.log('采购字段示例:', procurementFields.slice(0, 5).map(f => ({
-          名称: f.fieldName,
-          别名: f.fieldAlias,
-          类型: f.fieldType || f.fieldCategory,
-          数据类型: f.dataType
-        })))
-      }
-    } else {
-      console.error('❌ 字段配置获取失败:', fieldResult.error)
-      ElMessage.error('字段配置获取失败: ' + fieldResult.error)
-      return
-    }
-
-    // 2. 测试Excel文件解析
-    console.log('📊 测试Excel文件解析...')
-    const testFilePath = 'C:\\Users\\97477\\Desktop\\develop\\contrac system\\tests\\fixtures\\test-contract-only.xlsx'
-    console.log(`测试文件路径: ${testFilePath}`)
-
-    const parseResult = await window.electronAPI.invoke('import:parseFile', testFilePath)
-    console.log('解析结果:', parseResult)
-
-    if (parseResult.success) {
-      const worksheets = parseResult.data
-      console.log(`✅ 文件解析成功，工作表数量: ${worksheets.length}`)
-
-      worksheets.forEach((ws, index) => {
-        console.log(`📋 工作表 ${index + 1}:`)
-        console.log(`  - 名称: ${ws.sheetName}`)
-        console.log(`  - 类型: ${ws.sheetType}`)
-        console.log(`  - 识别状态: ${ws.recognitionStatus}`)
-        console.log(`  - 匹配字段数: ${ws.matchedFieldsCount}`)
-        console.log(`  - 匹配字段: ${ws.matchedFields?.join(', ') || '无'}`)
-        console.log(`  - 数据行数: ${ws.dataRows}`)
-        if (ws.failureReason) {
-          console.log(`  - 失败原因: ${ws.failureReason}`)
-        }
-      })
-
-      // 检查是否有识别的工作表
-      const recognizedSheets = worksheets.filter(ws => ws.recognitionStatus === 'recognized')
-      if (recognizedSheets.length > 0) {
-        console.log(`✅ 有 ${recognizedSheets.length} 个工作表被成功识别`)
-        ElMessage.success(`测试成功！识别了 ${recognizedSheets.length} 个工作表`)
-      } else {
-        console.warn('⚠️ 没有工作表被识别')
-        ElMessage.warning('测试完成，但没有工作表被识别，请检查字段匹配逻辑')
-      }
-    } else {
-      console.error('❌ 文件解析失败:', parseResult.error)
-      ElMessage.error('文件解析失败: ' + parseResult.error)
-    }
-
-    console.log('🎉 数据导入功能测试完成！')
-
-  } catch (error) {
-    console.error('❌ 测试过程中发生错误:', error)
-    ElMessage.error('测试失败: ' + error)
-  }
-}
 
 // 辅助方法
 const getStatusClass = (status: string): string => {
@@ -1769,27 +1672,5 @@ onMounted(() => {
   border-bottom: 1px solid rgba(226, 232, 240, 0.5) !important;
 }
 
-/* 测试按钮样式 */
-.btn-test {
-  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-left: 8px;
-  font-weight: 500;
-}
 
-.btn-test:hover {
-  background: linear-gradient(135deg, #ee5a24, #ff6b6b);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
-}
-
-.btn-test:active {
-  transform: translateY(0);
-}
 </style>
