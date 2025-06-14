@@ -1,0 +1,38 @@
+flowchart TD
+    A[Excel文件导入] --> B[工作表识别]
+    B --> C{识别结果}
+
+    C -->|已识别| D[匹配字段数达到要求]
+    C -->|未识别| E[不存储任何数据]
+
+    D --> F[存储到数据库]
+    E --> G[记录失败原因，不存储数据]
+
+    F --> H[自动关联项目]
+    H --> I[生成导入报告]
+
+    subgraph "手动更新机制"
+        J[用户触发更新] --> K[读取Excel最新数据]
+        K --> L[直接覆盖数据库数据]
+        L --> M[不重新识别工作表类型]
+        M --> N[不保留历史版本]
+        N --> O[更新完成]
+    end
+
+    subgraph "数据存储策略"
+        P[已识别数据] --> Q[完整存储]
+        R[未识别数据] --> S[不存储任何数据，仅记录失败原因]
+    end
+
+    subgraph "识别失败原因"
+        T[字段匹配数不足]
+        U[未找到任何匹配字段]
+        V[字段匹配规则不满足阈值]
+    end
+
+    style E fill:#ffcccc
+    style G fill:#ffcccc
+    style S fill:#ffcccc
+    style T fill:#ffe6e6
+    style U fill:#ffe6e6
+    style V fill:#ffe6e6

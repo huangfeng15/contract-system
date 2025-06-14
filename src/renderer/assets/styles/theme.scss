@@ -1,0 +1,401 @@
+/**
+ * 高端企业级主题配置
+ * 提供专业的视觉设计系统
+ */
+
+// 深色主题变量
+:root[data-theme="dark"] {
+  // 主色调
+  --app-primary-color: #3b82f6;
+  --app-primary-light: #60a5fa;
+  --app-primary-lighter: #93c5fd;
+  --app-primary-lightest: #1e293b;
+  --app-primary-dark: #1d4ed8;
+  --app-primary-darker: #1e40af;
+  
+  // 辅助色
+  --app-accent-color: #fbbf24;
+  --app-accent-light: #fcd34d;
+  --app-accent-lighter: #fde68a;
+  --app-accent-lightest: #292524;
+  
+  // 背景色系
+  --app-bg-primary: #0f172a;
+  --app-bg-secondary: #1e293b;
+  --app-bg-tertiary: #334155;
+  --app-bg-overlay: rgba(0, 0, 0, 0.8);
+  
+  // 文字色系
+  --app-text-primary: #f8fafc;
+  --app-text-secondary: #cbd5e1;
+  --app-text-tertiary: #94a3b8;
+  --app-text-placeholder: #64748b;
+  --app-text-inverse: #0f172a;
+  
+  // 边框色系
+  --app-border-light: #334155;
+  --app-border-medium: #475569;
+  --app-border-dark: #64748b;
+  
+  // 中性色系
+  --app-gray-50: #1e293b;
+  --app-gray-100: #334155;
+  --app-gray-200: #475569;
+  --app-gray-300: #64748b;
+  --app-gray-400: #94a3b8;
+  --app-gray-500: #cbd5e1;
+  --app-gray-600: #e2e8f0;
+  --app-gray-700: #f1f5f9;
+  --app-gray-800: #f8fafc;
+  --app-gray-900: #ffffff;
+}
+
+// 高端动画效果
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translateY(0);
+  }
+  40%, 43% {
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    transform: translateY(-30px);
+  }
+  70% {
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    transform: translateY(-15px);
+  }
+  90% {
+    transform: translateY(-4px);
+  }
+}
+
+// 动画类
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.animate-fade-in-left {
+  animation: fadeInLeft 0.6s ease-out;
+}
+
+.animate-fade-in-right {
+  animation: fadeInRight 0.6s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.5s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+// 延迟动画
+.animate-delay-75 {
+  animation-delay: 75ms;
+}
+
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-150 {
+  animation-delay: 150ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animate-delay-500 {
+  animation-delay: 500ms;
+}
+
+.animate-delay-700 {
+  animation-delay: 700ms;
+}
+
+.animate-delay-1000 {
+  animation-delay: 1000ms;
+}
+
+// 高端组件样式
+.premium-card {
+  background: var(--app-bg-primary);
+  border: 1px solid var(--app-border-light);
+  border-radius: var(--app-radius-xl);
+  box-shadow: var(--app-shadow-lg);
+  transition: all var(--app-transition-normal);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--app-gradient-primary);
+  }
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--app-shadow-2xl);
+    border-color: var(--app-primary-light);
+  }
+}
+
+.premium-button {
+  position: relative;
+  overflow: hidden;
+  background: var(--app-gradient-primary);
+  border: none;
+  border-radius: var(--app-radius-lg);
+  color: white;
+  font-weight: var(--app-font-semibold);
+  padding: var(--app-spacing-md) var(--app-spacing-xl);
+  transition: all var(--app-transition-fast);
+  cursor: pointer;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--app-shadow-lg);
+    
+    &::before {
+      left: 100%;
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.premium-input {
+  position: relative;
+  
+  .input-field {
+    width: 100%;
+    padding: var(--app-spacing-md) var(--app-spacing-lg);
+    border: 2px solid var(--app-border-light);
+    border-radius: var(--app-radius-lg);
+    background: var(--app-bg-primary);
+    color: var(--app-text-primary);
+    font-size: var(--app-text-base);
+    transition: all var(--app-transition-fast);
+    
+    &:focus {
+      outline: none;
+      border-color: var(--app-primary-color);
+      box-shadow: 0 0 0 4px var(--app-primary-lightest);
+      transform: translateY(-1px);
+    }
+    
+    &::placeholder {
+      color: var(--app-text-placeholder);
+    }
+  }
+  
+  .input-label {
+    position: absolute;
+    top: -8px;
+    left: var(--app-spacing-md);
+    background: var(--app-bg-primary);
+    padding: 0 var(--app-spacing-sm);
+    color: var(--app-text-secondary);
+    font-size: var(--app-text-sm);
+    font-weight: var(--app-font-medium);
+  }
+}
+
+.premium-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--app-spacing-xs) var(--app-spacing-md);
+  border-radius: var(--app-radius-full);
+  font-size: var(--app-text-sm);
+  font-weight: var(--app-font-medium);
+  
+  &--primary {
+    background: var(--app-primary-lightest);
+    color: var(--app-primary-color);
+    border: 1px solid var(--app-primary-light);
+  }
+  
+  &--success {
+    background: rgba(5, 150, 105, 0.1);
+    color: var(--app-success-color);
+    border: 1px solid var(--app-success-light);
+  }
+  
+  &--warning {
+    background: rgba(217, 119, 6, 0.1);
+    color: var(--app-warning-color);
+    border: 1px solid var(--app-warning-light);
+  }
+  
+  &--danger {
+    background: rgba(220, 38, 38, 0.1);
+    color: var(--app-danger-color);
+    border: 1px solid var(--app-danger-light);
+  }
+}
+
+.premium-tooltip {
+  position: relative;
+  
+  &::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--app-gray-800);
+    color: white;
+    padding: var(--app-spacing-sm) var(--app-spacing-md);
+    border-radius: var(--app-radius-md);
+    font-size: var(--app-text-sm);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--app-transition-fast);
+    z-index: var(--app-z-tooltip);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: var(--app-gray-800);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--app-transition-fast);
+    z-index: var(--app-z-tooltip);
+  }
+  
+  &:hover {
+    &::after,
+    &::before {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-4px);
+    }
+  }
+}
